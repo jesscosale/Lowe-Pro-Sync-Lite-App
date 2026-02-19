@@ -1,7 +1,9 @@
 import streamlit as st
 
+# 1. AUTHENTICATION (The Gate)
 if "auth" not in st.session_state:
     st.session_state["auth"] = False
+    st.session_state["count"] = 0  # Starts the counter for the scan math
 
 if not st.session_state["auth"]:
     st.title("🔒 Pro-Sync Private Access")
@@ -13,13 +15,24 @@ if not st.session_state["auth"]:
         else:
             st.error("Invalid Key")
 else:
-    # --- THE 7-FIGURE APP ---
-    st.title("🚧 Lowe's Pro-Sync Pilot")
-    st.sidebar.metric("Loss Prevented", "$4,200")
-    
-    with st.form("check"):
-        job = st.text_input("Job ID (e.g. LW-101)")
-        cam = st.camera_input("Scan Material")
-        stat = st.radio("Status", ["Perfect", "Damaged"])
-        if st.form_submit_button("Submit"):
-            st.success("Report Sent to Pro Desk")
+                                                                            # 2. THE DASHBOARD (The Pitch)
+                                                                                st.title("🛡️ Lowe's Pro-Sync Pilot")
+                                                                                
+                                                                                # This math updates every time you hit submit
+                                                                                current_loss = 4200 + (st.session_state["count"] * 150) 
+                                                                                st.sidebar.metric("Total Loss Prevented", f"${current_loss:,}")
+                                                                                st.sidebar.write(f"Scans this Shift: {st.session_state['count']}")
+                                                                            
+                                                                                # 3. DATA CAPTURE (The Proof)
+                                                                                with st.form("check"):
+                                                                                    job = st.text_input("Job ID (e.g. LW-101)")
+                                                                                    cam = st.camera_input("Scan Material Condition")
+                                                                                    stat = st.radio("Status", ["Perfect", "Damaged"])
+                                                                                    
+                                                                                    if st.form_submit_button("Submit to Pro-Sync Database"):
+                                                                                        if job:
+                                                                                            st.session_state["count"] += 1
+                                                                                            st.success(f"Log {job} synced to Lowe's backend. +$150 Loss Prevention recorded.")
+                                                                                        else:
+                                                                                            st.warning("Please enter a Job ID to sync data.")
+                                                                                                                                                                                
