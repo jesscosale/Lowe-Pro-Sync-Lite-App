@@ -26,7 +26,6 @@ else:
     st.sidebar.metric("Verified Asset Value", f"${st.session_state['total_saved']:,.2f}")
 
     with st.form("scan_form"):
-        job = st.text_input("Job ID (e.g. LW-101)")
         price = st.number_input("Item Retail Value ($)", min_value=0.0, step=0.01)
         cam = st.camera_input("Scan Material Condition")
         stat = st.radio("Status", ["Perfect", "Damaged"])
