@@ -1,5 +1,9 @@
 import streamlit as st
 
+# THIS MUST BE FIRST - It creates the counter so the app doesn't crash
+if "count" not in st.session_state:
+    st.session_state["count"] = 0
+
 # 1. AUTHENTICATION (The Gate)
 if "auth" not in st.session_state:
     st.session_state["auth"] = False
