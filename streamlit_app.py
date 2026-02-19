@@ -2,9 +2,7 @@ import streamlit as st
 
 # --- LOCK THE GATE ---
 if "auth" not in st.session_state:
-    st.session_state["auth"] = False
-
-    if not st.session_state["auth"]:
+if not st.session_state["auth"]:
         st.title("🔒 Pro-Sync Private Access")
             pwd = st.text_input("Enter Key:", type="password")
                 if st.button("Unlock"):
